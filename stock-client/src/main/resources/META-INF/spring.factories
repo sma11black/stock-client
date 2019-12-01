@@ -1,1 +1,3 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.example.stockclient.ClientConfiguration
+# magic which enables me to use the configuration from Client in UI
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.example.stockclient.ClientConfiguration
