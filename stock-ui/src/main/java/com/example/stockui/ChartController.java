@@ -30,13 +30,8 @@ public class ChartController {
 
     @FXML
     public void initialize() {
-        String symbol1 = "SYMBOL1";
-        final PriceSubscriber priceSubscriber1 = new PriceSubscriber(symbol1);
-        webClientStockClient.pricesFor(symbol1).subscribe(priceSubscriber1);
-
-        String symbol2 = "SYMBOL2";
-        final PriceSubscriber priceSubscriber2 = new PriceSubscriber(symbol2);
-        webClientStockClient.pricesFor(symbol2).subscribe(priceSubscriber2);
+        var priceSubscriber1 = new PriceSubscriber("SYMBOL1", webClientStockClient);
+        var priceSubscriber2 = new PriceSubscriber("SYMBOL2", webClientStockClient);
 
         ObservableList<Series<String, Double>> data = observableArrayList();
         data.add(priceSubscriber1.getSeries());
@@ -49,8 +44,10 @@ public class ChartController {
         private final Series<String, Double> series;
         private final ObservableList<Data<String, Double>> seriesData = observableArrayList();
 
-        private PriceSubscriber(String symbol) {
+        private PriceSubscriber(String symbol, WebClientStockClient stockClient) {
             series = new Series<>(symbol, seriesData);
+            stockClient.pricesFor(symbol)
+                    .subscribe(this);
         }
 
         @Override
