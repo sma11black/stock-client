@@ -1,13 +1,11 @@
 package com.example.stockui;
 
+import com.example.stockclient.StockClient;
 import com.example.stockclient.StockPrice;
-import com.example.stockclient.WebClientStockClient;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
 import javafx.scene.chart.XYChart.Series;
 import org.springframework.stereotype.Component;
@@ -22,9 +20,9 @@ public class ChartController {
 
     @FXML
     public LineChart<String, Double> chart;
-    private WebClientStockClient webClientStockClient;
+    private StockClient webClientStockClient;
 
-    public ChartController(WebClientStockClient webClientStockClient) {
+    public ChartController(StockClient webClientStockClient) {
         this.webClientStockClient = webClientStockClient;
     }
 
@@ -44,7 +42,7 @@ public class ChartController {
         private final Series<String, Double> series;
         private final ObservableList<Data<String, Double>> seriesData = observableArrayList();
 
-        private PriceSubscriber(String symbol, WebClientStockClient stockClient) {
+        private PriceSubscriber(String symbol, StockClient stockClient) {
             series = new Series<>(symbol, seriesData);
             stockClient.pricesFor(symbol)
                     .subscribe(this);
