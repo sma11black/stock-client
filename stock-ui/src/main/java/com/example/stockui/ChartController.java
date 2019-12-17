@@ -20,16 +20,16 @@ public class ChartController {
 
     @FXML
     public LineChart<String, Double> chart;
-    private StockClient webClientStockClient;
+    private StockClient stockClient;
 
-    public ChartController(StockClient webClientStockClient) {
-        this.webClientStockClient = webClientStockClient;
+    public ChartController(StockClient stockClient) {
+        this.stockClient = stockClient;
     }
 
     @FXML
     public void initialize() {
-        var priceSubscriber1 = new PriceSubscriber("SYMBOL1", webClientStockClient);
-        var priceSubscriber2 = new PriceSubscriber("SYMBOL2", webClientStockClient);
+        var priceSubscriber1 = new PriceSubscriber("SYMBOL1", stockClient);
+        var priceSubscriber2 = new PriceSubscriber("SYMBOL2", stockClient);
 
         ObservableList<Series<String, Double>> data = observableArrayList();
         data.add(priceSubscriber1.getSeries());
